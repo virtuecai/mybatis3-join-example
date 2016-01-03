@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyxy.platform.modules.repository.mybatis.showcase.ShowCaseImagePkgMapper">
+    <resultMap id="BaseResultMap" type="com.xyxy.platform.modules.entity.showcase.ShowCaseImagePkg">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <collection property="showCaseImageItemList"
+                    column="id"
+                    ofType="java.util.HashMap"
+                    javaType="ArrayList"
+                    select="com.xyxy.platform.modules.repository.mybatis.showcase.ShowCaseImageItemMapper.findByImagePkgId">
+
+        </collection>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from showcase_image_pkg
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select
+     id
+    from showcase_image_pkg
+    where
+      id = #{id,jdbcType=BIGINT}
+  </select>
+    <insert id="insert" parameterType="com.xyxy.platform.modules.entity.showcase.ShowCaseImagePkg">
+    insert into showcase_image_pkg (id)
+    values (#{id,jdbcType=BIGINT})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xyxy.platform.modules.entity.showcase.ShowCaseImagePkg">
+        insert into showcase_image_pkg
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+</mapper>
